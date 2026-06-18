@@ -22,9 +22,10 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-        </tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
     </thead>
 
     <tbody id="school-table-body"></tbody>
@@ -40,17 +41,26 @@ function loadSchools(search = '') {
             if (data.data.length === 0) {
                 rows = `
                     <tr>
-                        <td colspan="2">No schools found</td>
+                        <td colspan="3">No schools found</td>
                     </tr>
                 `;
             } else {
                 data.data.forEach(function(school) {
-                    rows += `
-                        <tr>
-                            <td>${school.id}</td>
-                            <td>${school.name}</td>
-                        </tr>
-                    `;
+                  rows += `
+                    <tr>
+                        <td>${school.id}</td>
+                        <td>${school.name}</td>
+                        <td>
+                            <a href="/schools/edit/${school.id}/" class="btn btn-warning btn-sm">
+                                Edit
+                            </a>
+
+                            <a href="/schools/delete/${school.id}/" class="btn btn-danger btn-sm">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                `;
                 });
             }
 
