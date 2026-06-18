@@ -31,7 +31,6 @@ def dashboard(request):
 def school_list(request):
     return render(request, 'school/list.html')
 
-
 def school_create(request):
     if request.method == 'POST':
         form = SchoolForm(request.POST)
@@ -174,7 +173,13 @@ def school_students_api(request, pk):
 
 @api_view(['GET'])
 def school_list_api(request):
+    search = request.GET.get('search', '')
+
     schools = School.objects.all()
+
+    if search:
+        schools = schools.filter(name__icontains=search)
+
     serializer = SchoolSerializer(schools, many=True)
 
     return Response({

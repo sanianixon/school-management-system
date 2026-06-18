@@ -5,14 +5,21 @@
 <div class="d-flex justify-content-between mb-3">
     <h2>Schools</h2>
 
-    <a href="{% url 'school_create' %}"
-       class="btn btn-primary">
+    <a href="{% url 'school_create' %}" class="btn btn-primary">
         Add School
     </a>
 </div>
 
-<table class="table table-bordered table-striped">
+<div class="mb-3">
+    <input
+        type="text"
+        id="search-input"
+        class="form-control"
+        placeholder="Search school..."
+    >
+</div>
 
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>ID</th>
@@ -20,37 +27,42 @@
         </tr>
     </thead>
 
-    <tbody id="school-table-body">
-
-    </tbody>
-
+    <tbody id="school-table-body"></tbody>
 </table>
 
 <script>
+function loadSchools(search = '') {
+    fetch(`/api/schools/?search=${search}`)
+        .then(response => response.json())
+        .then(data => {
+            let rows = '';
 
-fetch('/api/schools/')
-    .then(response => response.json())
-    .then(data => {
+            if (data.data.length === 0) {
+                rows = `
+                    <tr>
+                        <td colspan="2">No schools found</td>
+                    </tr>
+                `;
+            } else {
+                data.data.forEach(function(school) {
+                    rows += `
+                        <tr>
+                            <td>${school.id}</td>
+                            <td>${school.name}</td>
+                        </tr>
+                    `;
+                });
+            }
 
-        let rows = '';
-
-        data.data.forEach(function(school) {
-
-            rows += `
-                <tr>
-                    <td>${school.id}</td>
-                    <td>${school.name}</td>
-                </tr>
-            `;
-
+            document.getElementById('school-table-body').innerHTML = rows;
         });
+}
 
-        document.getElementById(
-            'school-table-body'
-        ).innerHTML = rows;
+loadSchools();
 
-    });
-
+document.getElementById('search-input').addEventListener('keyup', function() {
+    loadSchools(this.value);
+});
 </script>
 
 {% endblock %}
