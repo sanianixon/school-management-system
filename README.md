@@ -24,7 +24,7 @@ A Django-based School Management System developed using Django, Django REST Fram
 ### API Response
 
 ![API Response](screenshots/api-response.png)
-![School + Students API](screenshots/school-students-api.png)
+![School + Students APIgit add .](screenshots/school-students-api.png)
 
 ## Features
 
