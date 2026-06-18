@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between mb-3">
+    <h2>Schools</h2>
+
+    <a href="{% url 'school_create' %}"
+       class="btn btn-primary">
+        Add School
+    </a>
+</div>
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+
+    <tbody id="school-table-body">
+
+    </tbody>
+
+</table>
+
+<script>
+
+fetch('/api/schools/')
+    .then(response => response.json())
+    .then(data => {
+
+        let rows = '';
+
+        data.data.forEach(function(school) {
+
+            rows += `
+                <tr>
+                    <td>${school.id}</td>
+                    <td>${school.name}</td>
+                </tr>
+            `;
+
+        });
+
+        document.getElementById(
+            'school-table-body'
+        ).innerHTML = rows;
+
+    });
+
+</script>
+
+{% endblock %}
