@@ -17,6 +17,10 @@ A Django-based School Management System developed using Django, Django REST Fram
 
 ![Students](screenshots/student.png)
 
+### Excel download of student list 
+
+![Excel download](screenshots/Excel.png)
+
 ### Admin Panel
 
 ![Admin](screenshots/admin.png)
@@ -39,6 +43,7 @@ A Django-based School Management System developed using Django, Django REST Fram
 * Create, view, update, and delete students
 * Unique enrollment number validation
 * School-wise student mapping using Foreign Keys
+* Option to automatically generate an excel sheet for all the students
 
 ### REST APIs
 

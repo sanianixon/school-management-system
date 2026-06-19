@@ -18,6 +18,11 @@ urlpatterns = [
     path('api/school/<int:pk>/students/', views.school_students_api, name='school_students_api'),
 
     path('api/schools/', views.school_list_api, name='school_list_api'),
+    path(
+        'students/export/excel/',
+        views.export_students_excel,
+        name='export_students_excel'
+    ),
 ]
 
 path(

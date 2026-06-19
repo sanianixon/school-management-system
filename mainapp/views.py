@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.http import HttpResponse
+from openpyxl import Workbook
 
 from .models import School, Student
 from .forms import SchoolForm, StudentForm
@@ -190,3 +192,36 @@ def school_list_api(request):
         'message': 'Schools fetched successfully',
         'data': serializer.data
     })
+
+def export_students_excel(request):
+    workbook = Workbook()
+    sheet = workbook.active
+    sheet.title = "Students"
+
+    sheet.append([
+        "ID",
+        "Name",
+        "Enrollment",
+        "School",
+        "Created At"
+    ])
+
+    students = Student.objects.select_related('school').all()
+
+    for student in students:
+        sheet.append([
+            student.id,
+            student.name,
+            student.enrollment,
+            student.school.name,
+            student.created_at.strftime("%d-%m-%Y")
+        ])
+
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = 'attachment; filename=students.xlsx'
+
+    workbook.save(response)
+
+    return response
