@@ -11,7 +11,7 @@ A Django-based School Management System developed using Django, Django REST Fram
 ### Schools Page
 
 ![Schools](screenshots/school.png)
-![edit page](screenshots/edit page.png)
+![edit page](screenshots/edit-page.png)
 
 ### Students Page
 
