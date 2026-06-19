@@ -196,8 +196,3 @@ python manage.py runserver
 * Authentication and authorization
 * Dashboard analytics
 
----
-
-## Author
-
-Sania Nixon
