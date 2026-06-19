@@ -19,7 +19,7 @@ A Django-based School Management System developed using Django, Django REST Fram
 
 ### Excel download of student list 
 
-![Excel download](screenshots/Excel.png)
+![Excel download](screenshots/excel.png)
 
 ### Admin Panel
 
