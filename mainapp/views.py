@@ -13,19 +13,22 @@ from .serializers import (
 
 
 def dashboard(request):
-    total_schools = School.objects.count()
-    total_students = Student.objects.count()
+    school_count = School.objects.count()
+    student_count = Student.objects.count()
+
+    recent_schools = School.objects.order_by('-created_at')[:5]
+    recent_students = Student.objects.select_related('school').order_by('-created_at')[:5]
 
     return render(
         request,
         'dashboard.html',
         {
-            'total_schools': total_schools,
-            'total_students': total_students
+            'school_count': school_count,
+            'student_count': student_count,
+            'recent_schools': recent_schools,
+            'recent_students': recent_students,
         }
     )
-
-
 # SCHOOL CRUD
 
 def school_list(request):

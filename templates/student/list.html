@@ -1,9 +1,10 @@
-{% extends 'base.html' %}
-
+{% extends 'base_new.html' %}
+{% block page_title %}
+Students
+{% endblock %}
 {% block content %}
 
 <div class="d-flex justify-content-between mb-3">
-    <h2>Students</h2>
 
     <a href="{% url 'student_create' %}" class="btn btn-primary">
         Add Student

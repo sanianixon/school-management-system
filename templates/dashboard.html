@@ -1,38 +1,93 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
+
+{% block page_title %}
+Dashboard
+{% endblock %}
 
 {% block content %}
 
-<div class="mb-4">
-    <h2>Dashboard</h2>
-    <p class="text-muted">
-        Welcome to the School Management System.
-    </p>
+<div class="row mb-4">
+
+    <div class="col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon text-bg-primary">
+                <i class="bi bi-building"></i>
+            </span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Schools</span>
+                <span class="info-box-number">{{ school_count }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon text-bg-success">
+                <i class="bi bi-people"></i>
+            </span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Students</span>
+                <span class="info-box-number">{{ student_count }}</span>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="row">
 
     <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Total Schools</h5>
-                <h2>{{ total_schools }}</h2>
-                <a href="{% url 'school_list' %}" class="btn btn-primary btn-sm">
-                    View Schools
-                </a>
-            </div>
-        </div>
+        <h5 class="mb-3">Recent Schools</h5>
+
+        <table class="table table-borderless align-middle">
+            <thead>
+                <tr class="text-muted">
+                    <th>Name</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for school in recent_schools %}
+                <tr>
+                    <td>{{ school.name }}</td>
+                    <td>{{ school.created_at|date:"d M Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No schools added yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
     <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Total Students</h5>
-                <h2>{{ total_students }}</h2>
-                <a href="{% url 'student_list' %}" class="btn btn-primary btn-sm">
-                    View Students
-                </a>
-            </div>
-        </div>
+        <h5 class="mb-3">Recent Students</h5>
+
+        <table class="table table-borderless align-middle">
+            <thead>
+                <tr class="text-muted">
+                    <th>Name</th>
+                    <th>School</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for student in recent_students %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.school.name }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No students added yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 </div>
